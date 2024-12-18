@@ -1,0 +1,122 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<string>
+using namespace std;
+
+class person{
+private:
+    string name;
+    string dob;
+    string mob_no;
+    friend class person_data;
+public:
+    //default constructor
+    person(){
+        name=" ";
+        dob="dd/mm/yyyy";
+        mob_no=" ";
+    }
+
+    void getdata(){
+        cout<<"enter the name of person = ";
+        cin>>name;
+        cout<<"enter date of birth = ";
+        cin>>dob;
+        cout<<"enter mobile number = ";
+        cin>>mob_no;
+    }
+
+    //overloading == operator for searching
+    bool operator == (const person&obj){
+        if(name==obj.name){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    //overloading < operator for sorting
+    bool operator < (const person & obj){
+        if(name<obj.name){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+};
+
+class person_data{
+private:
+    person p1;
+    vector<person>v;
+public:
+    void insert(){
+        p1.getdata();
+        v.push_back(p1);
+    }
+
+    void search(){
+        vector<person>::iterator it;
+        person p1;
+
+        cout<<"enter the person to be searched : ";
+        cin>>p1.name;
+
+        it=find(v.begin(),v.end(),p1);
+
+        if(it==v.end()){
+            cout<<"person not found ..!!"<<endl;
+        }else{
+            cout<<"person found at index : "<<distance(v.begin(),it)<<endl;
+        }
+    }
+
+    void sorting(){
+        sort(v.begin(),v.end());
+        cout<<"sorted ..!!"<<endl;
+    }
+
+    void display(){
+        for(int i=0 ; i<v.size() ; i++){
+            cout<<v[i].name<<"  "<<v[i].dob<<"  "<<v[i].mob_no<<endl;
+        }
+    }
+};
+
+int main(){
+    person_data persobj;
+
+    cout<<"___DISPLAY MENU___"<<endl;
+    cout<<"1.insert the person data"<<endl<<"2.display person data"<<endl<<"3.search"<<endl<<"4.sort"<<endl<<"5.exit"<<endl;
+
+    while(1){
+        int choice ;
+        cout<<"enter choice : ";
+        cin>>choice;
+
+        switch(choice){
+            case 1: persobj.insert();
+                break;
+            
+            case 2: persobj.display();
+                break;
+            
+            case 3: persobj.search();
+                break;
+
+            case 4: persobj.sorting();
+                break;
+
+            case 5: cout<<"exited..!!"<<endl;
+                return 0;
+
+            default: cout<<"enter the valid choice ..!!"<<endl;
+                break;
+              
+        }
+        
+    }
+
+    return 0;
+}

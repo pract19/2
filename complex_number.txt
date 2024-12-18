@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+
+class complex{
+private:
+    int real;
+    int imag;
+public:
+    //DEFAULT CONSTRUCTOR
+    complex(){
+        real=0;
+        imag=0;
+    }
+
+    //  parametrized constructor
+    complex(int r, int i){
+        real=r;
+        imag=i;
+    }
+
+    //copy constructor
+    complex(const complex&obj){
+        real=obj.real;
+        imag=obj.imag;
+    }
+
+    //overloading + operator
+    complex operator + (const complex&obj1){
+        return complex(real+obj1.real , imag+obj1.imag);
+    }
+
+    //overloading * operator
+    // complex operator * (const complex&obj2){
+    //     return complex(real*obj2.real , imag*obj2.imag);
+    // }
+    complex operator *(const complex & obj2){
+        return complex(real*obj2.real , imag*obj2.imag);
+    }
+
+
+    //overloading - operator
+    complex operator - (const complex&obj3){
+        return complex(real-obj3.real , imag-obj3.imag);
+    }
+
+    //overloading << operator
+    friend ostream&operator<<(ostream&out , const complex&o);
+
+    //overloading >> operator
+    friend istream&operator>>(istream&in , complex&i);
+
+};
+
+ostream&operator<<(ostream&out , const complex&o){
+    cout<<o.real<<"+"<<o.imag<<"i"<<endl;
+}
+
+istream&operator>>(istream&in , complex&i){
+    cout<<"enter the real part = ";
+    cin>>i.real;
+    cout<<"enter the imag part = ";
+    cin>>i.imag;
+
+    return cin;
+}
+
+int main(){
+
+    complex c1,c2,c3,c4,c5;
+
+    cout<<"enter 1st complex number -> "<<endl;
+    cin>>c1;
+    cout<<"1st complex number = "<<c1<<endl;
+
+    cout<<"enter 2nd complex number -> "<<endl;
+    cin>>c2;
+    cout<<"1st complex number = "<<c2<<endl;
+
+    cout<<" ___DISPLAY MENU___"<<endl;
+    cout<<"1.addition "<<endl<<"2.multiplication"<<endl<<"3.subtraction"<<endl<<"4.exit"<<endl;
+
+    while(1){
+        int choice ;
+        cout<<"enter the choice : ";
+        cin>>choice;
+
+        switch(choice){
+            case 1: c3=c1+c2;
+                cout<<"sum of two complex number = "<<c3<<endl;
+                break;
+
+            case 2: c4=c1*c2;
+                cout<<"product of two complex number = "<<c4<<endl;
+                break;
+
+            case 3: c5=c1-c2;
+                cout<<"difference of two complex number = "<<c5<<endl;
+                break;
+
+            case 4:cout<<"exit program..!!"<<endl;
+                return 0;
+
+            default: cout<<"enter valid choice..!!"<<endl;
+                break;
+        }
+    }
+
+    return 0;
+
+}
+

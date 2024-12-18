@@ -1,0 +1,69 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+
+class employee{
+private:
+    string name;
+    int id;
+    long double salary;
+public:
+    void getdata(){
+        ofstream f1("employee_data.txt",ios::app);
+            cout<<"enter name of the employee : ";
+            cin>>name;
+            f1<<name<<" ";
+
+            cout<<"enter employee_ID : ";
+            cin>>id;
+            f1<<id<<" ";
+
+            cout<<"enter employee salary : $";
+            cin>>salary;
+            f1<<salary<<endl;
+            
+            f1.close();
+    }
+
+    void display(){
+        ifstream f1("employee_data.txt",ios::in);
+        string data;
+
+        cout<<"display employee data ->"<<endl;
+        cout<<" name  id  salary = ";
+        while(getline(f1,data)){
+            cout<<data<<" ";
+        }
+        cout<<endl;
+        f1.close();
+    }
+};
+
+int main(){
+    employee obj;
+    cout<<"___  menu box ___"<<endl;
+    cout<<"1.enter employee data"<<endl<<"2.display employee data"<<endl<<"3.exit"<<endl;
+
+    while(1){
+        int choice;
+        cout<<"enter choice : ";
+        cin>>choice;
+
+        switch(choice){
+            case 1: obj.getdata();
+                break;
+            
+            case 2: obj.display();
+                break;
+            
+            case 3: cout<<"program exited ..!!"<<endl;
+                return 0;
+            
+            default : cout<<"enter valid choice ..!!"<<endl;
+                break;
+        }
+    }
+
+    return 0;
+}

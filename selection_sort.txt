@@ -1,0 +1,95 @@
+#include<iostream>
+using namespace std;
+
+template<typename T>
+void insert(T arr[] , int n){
+    for(int i=0;i<n;i++){
+        cout<<"enter element "<<i+1<<" : ";
+        cin>>arr[i];
+    }
+}
+
+template<typename T>
+void selection_sort(T arr[],int n){
+    int min;
+    T temp;
+    for(int i=0 ; i<n ; i++){
+        min=i;
+        for(int j=i+1 ; j<n ; j++){
+            if(arr[j]<arr[min]){
+                min=j;
+            }
+        }
+        temp=arr[i];
+        arr[i]=arr[min];
+        arr[min]=temp;
+    }
+}
+
+template<typename T>
+void display(T arr , int n){
+    for(int i=0 ; i<n ; i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+int main(){
+    int size=0;
+    int iarr[100];
+    float farr[100];
+
+    cout<<"___DISPLAY MENU___"<<endl;
+    cout<<"1.enter the integer values"<<endl<<"2.enter float values"<<endl<<"3.display integer array"<<endl<<"4.display float array"<<endl<<"5.sort integer array"<<endl<<"6.sort float array"<<endl<<"7.display sorted inetger array"<<endl<<"8.display sorted float array"<<endl<<"9.exit"<<endl;
+
+    while(1){
+        int choice ;
+        cout<<"enter ypur choice = ";
+        cin>>choice;
+
+        switch(choice){
+            case 1: cout<<"enter total number of integer elements = ";
+                cin>>size;
+                insert(iarr,size);
+                break;
+            
+            case 2: cout<<"enter total number of float elements = ";
+                cin>>size;
+                insert(farr,size);
+                break;
+
+            case 3: cout<<"unsorted integer array = ";
+                display(iarr,size);
+                break;
+
+            case 4: cout<<"unsorted float array = ";
+                display(farr,size);
+                break;
+
+            case 5: cout<<"sorting integer array..!!"<<endl;
+                selection_sort(iarr,size);
+                break;
+
+            case 6: cout<<"sorting float array..!!"<<endl;
+                selection_sort(farr,size);
+                break;
+
+            case 7: cout<<"sorted integer array = ";
+                display(iarr,size);
+                break;
+
+            case 8: cout<<"sorted float array = ";
+                display(farr,size);
+                break;
+
+            case 9: cout<<"program exited ..!!"<<endl;
+                return 0;
+            
+            default : cout<<"enter valid choice ..!!"<<endl;
+                break;
+        }
+    }
+
+    return 0; 
+
+}

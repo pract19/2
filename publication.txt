@@ -1,0 +1,100 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class publication{
+protected:
+    string title;
+    float price;
+public:
+    publication(){
+        title=" ";
+        price=0.0f;
+    }
+
+    publication(string title, float price){
+        this->title=title;
+        this->price=price;
+    }
+
+   void display() {
+        cout << "Title: " << title << endl;
+        cout << "Price: $" << price << endl;
+    }
+};
+
+class book:public publication{
+protected:
+    int page_count;
+public:
+    book(string title, float price ,int page_count):publication(title,price){
+        try{
+            this->page_count=page_count;
+            if(page_count<=0){
+                throw page_count;
+            }
+        }catch(...){
+            cout<<"invalid page count ..!!"<<endl;
+            this->page_count=0;
+        }
+    }
+
+     void display() {
+        cout<<"BOOK DETAILS ->"<<endl;
+        publication::display();
+        cout << "Page Count: " << page_count << endl;
+    }
+};
+
+class tape:public publication{
+protected:
+    float play_time;
+public:
+    tape(string title,float price,float play_time):publication(title,price){
+        try{
+            this->play_time=play_time;
+            if(play_time<=0){
+                throw play_time;
+            }
+        }catch(...){
+            cout<<"invalid play time..!!"<<endl;
+            this->play_time=0;
+        }
+    }
+    void display(){
+        cout<<"TAPE DETAILS ->"<<endl;
+        publication::display();
+        cout<<"play_time = "<<play_time<<" min"<<endl;
+    }
+};
+
+int main(){
+    string title;
+    float price;
+    int page_count;
+    float play_time;
+
+    cout<<"enter the name of the book = ";
+    getline(cin,title);
+    cout<<"enter the price of the book = ";
+    cin>>price;
+    cout<<"enter the page count for this book = ";
+    cin>>page_count;
+
+    book b1(title,price,page_count);
+    b1.display();
+    
+    cout<<"enter the name of the tape = ";
+    cin.ignore();
+    getline(cin,title);
+    cout<<"enter the price of the tape = ";
+    cin>>price;
+    cout<<"enter the play time of this tape = ";
+    cin>>play_time;
+
+    tape t1(title,price,play_time);
+    t1.display();
+
+    return 0;
+
+}

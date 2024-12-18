@@ -1,0 +1,104 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class student_info{
+private:
+    string name;
+    int roll_no;
+    int cls;
+    string division;
+    string dob;
+    static int student_count;
+public:
+    //  default constructor
+    student_info(){
+        name="-";
+        roll_no=0;
+        cls=0;
+        division="-";
+        dob="dd/mm/yyyy";
+        student_count++;
+    }
+
+    //parametrized constructor
+    student_info(string name,int roll_no,int cls,string division,string dob){
+        this->name=name;
+        this->roll_no=roll_no;
+        this->cls=cls;
+        this->division=division;
+        this->dob=dob;
+        student_count++;
+    }
+
+    //copy constructor
+    student_info(const student_info&obj){
+        name=obj.name;
+        roll_no=obj.roll_no;
+        cls=obj.cls;
+        division=obj.division;
+        dob=obj.dob;
+        student_count++;
+    }
+
+    //destructor
+    ~student_info(){
+        cout<<"destructor invoked for "<<name<<"..!!"<<endl;
+        student_count--;
+    }
+
+    //friend class
+    friend class display_info;
+
+    //static member function
+    static int getcount(){
+        return student_count;
+    } 
+
+};
+
+//initialize the static data member 
+int student_info::student_count=0;
+
+// friend class
+class display_info{
+public:
+    void display(student_info&obj){
+        cout<<"name = "<<obj.name<<endl;
+        cout<<"roll_no = "<<obj.roll_no<<endl;
+        cout<<"class = "<<obj.cls<<endl;
+        cout<<"division = "<<obj.division<<endl;
+        cout<<"date of birth = "<<obj.dob<<endl;
+        cout<<endl;
+    }
+};
+
+int main(){
+    student_info*s1=new student_info("ram",20,9,"a","27/09/2005");
+    student_info*s2=new student_info("sham",27,9,"a","2/04/2005");
+    student_info*s3=new student_info("krishna",31,9,"a","17/12/2005");
+
+    display_info disp;
+
+    cout<<"___DISPLAY STUDENT INFORMATION___"<<endl;
+    cout<<"student 1 ->"<<endl;
+    disp.display(*s1);
+    cout<<"student 2 ->"<<endl;
+    disp.display(*s2);
+    cout<<"student 3 ->"<<endl;
+    disp.display(*s3);
+
+    // accessing static member function 
+    cout<<"number of students = "<<student_info::getcount()<<endl;
+
+    delete s1;
+
+    cout<<"number of students = "<<student_info::getcount()<<endl;
+
+    delete s2;
+
+    cout<<"number of students = "<<student_info::getcount()<<endl;
+
+    return 0;
+
+}
